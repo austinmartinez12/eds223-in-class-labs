@@ -40,9 +40,8 @@ There are MANY different ways to make maps in R, all with different pros/cons. C
 ## 2. Set up
 
 ```{r}
-install.packages("sf")
-install.packages("stars")
-install.packages("tmap")
+##install.packages("stars")
+#install.packages("tmap")
 ```
 
 ```{r}
@@ -482,7 +481,18 @@ tm_shape(world_vector) +
 Similar to the `theme()` function in `ggplot2`, the `tm_layout()` function in `tmap` controls many of the map elements of the map layout.
 
 ```{r}
-
+tm_shape(world_vector) +
+  tm_polygons(fill = "gdp_per_cap",
+              fill.scale = tm_scale(breaks = c(0,5000,20000,50000, Inf),
+              labels = c("low", "medium", "high", "very high")),
+              fill.legend = tm_legend(title = "Region Income")) +
+  tm_title(text = "Global Income",
+           frame = TRUE) +
+  tm_layout(color_vision_deficiency_sim = ("protan"),
+            style = "beaver",
+            bg.color = "grey95",
+            frame.double_line = TRUE) +
+  tm_crs("+proj=eqearth")
 ```
 
 ## 7. Interactive options
@@ -490,10 +500,30 @@ Similar to the `theme()` function in `ggplot2`, the `tm_layout()` function in `t
 One of the most powerful aspects of `tmap` is the ease of creating interactive maps. `tmap` has two modes `"plot"` which creates static maps and `"view"` which creates interactive maps that can be easily embedded in quarto docs. It's as easy as using the `tmap_mode()`!
 
 ```{r}
+tmap_mode("view")
+
 
 ```
 
+```{r}
+tm_shape(world_vector) +
+  tm_polygons(fill = "gdp_per_cap",
+              fill.legend = tm_legend(title = "GDP per Capita"))
+```
+
 To return to regular plotting mode, simply reset `tmap_mode`.
+
+```{r}
+tmap_mode("plot")
+```
+
+```{r}
+tmap <- tm_shape(world_vector) +
+  tm_polygons(fill = "gdp_per_cap",
+              fill.legend = tm_legend(title = "GDP per Capita"))
+
+tmap_save(tmap, here::here( "week 1", "tmapmap.png"))
+```
 
 ```{r}
 
