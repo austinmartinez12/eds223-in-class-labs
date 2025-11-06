@@ -32,7 +32,7 @@ vignettes/*.pdf
 *_cache/
 /cache/
 
-
+/week5
 
 # Temporary files created by R markdown
 *.utf8.md
