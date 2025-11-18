@@ -142,7 +142,7 @@ We want to constrain our analysis to the southern portion of the county where we
 ```{r}
 # read in shapefile for southern portion of SB county
 SB_county_south <- st_read(here::here("week8", "data", "SB_county_south.shp")) %>%
-      st_transform(SB_county_south, crs = crs(landsat))
+      st_transform(SB_county_south, crs = crs(landsat)) 
 ```
 
 
